@@ -7,14 +7,14 @@ public:
         while (left < right) {
             int sum = numbers[left] + numbers[right];
             if (sum == target) {
-                return {left + 1, right + 1}; // returning 1-based indices
+                return {left + 1, right + 1}; // Return 1-indexed positions
             } else if (sum < target) {
-                left++;
+                left++; // Move the left pointer to the right to increase the sum
             } else {
-                right--;
+                right--; // Move the right pointer to the left to decrease the sum
             }
         }
 
-        return {}; // In case no solution is found, though the problem guarantees one
+        return {}; // This line should never be reached because the problem guarantees a solution
     }
 };
