@@ -1,21 +1,22 @@
 class Solution {
 public:
     bool canConstruct(string ransomNote, string magazine) {
-        ios_base::sync_with_stdio(false);
-        cin.tie(NULL);
+        unordered_map<char, int> charCount;
         
-        vector<int> magazineHash(26,0);
-        //Traverse magazine and keep count of each letter in magazineHash
-        for(int i=0;magazine[i]!='\0';++i)
-            magazineHash[magazine[i]-'a'] += 1;
-        
-        //Now traverse ransomNote and keep decrementing count in magazineHash
-        for(int i=0;ransomNote[i]!='\0';++i)
-        {
-            if(magazineHash[ransomNote[i]-'a']==0)
-                return false;
-            magazineHash[ransomNote[i]-'a'] -= 1;   //Using up char will lead to decrementing it by value 1
+        // Count the frequency of each character in the magazine
+        for (char c : magazine) {
+            charCount[c]++;
         }
-        return true;
+        
+        // Check if we have enough characters to construct the ransomNote
+        for (char c : ransomNote) {
+            if (charCount[c] > 0) {
+                charCount[c]--;
+            } else {
+                return false; // Not enough characters in magazine
+            }
+        }
+        
+        return true; // All characters are available in sufficient quantity
     }
 };
